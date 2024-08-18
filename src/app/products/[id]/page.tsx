@@ -2,7 +2,7 @@
 import productModel from '@/app/types/models/productModel';
 import React, {useEffect, useState} from 'react'
 
-const page = ({params}:{params:{id:number}}) => {
+const Page = ({params}:{params:{id:number}}) => {
   const [product,setProduct] = useState<productModel>();
 
   const getProduct = async()=>{
@@ -34,4 +34,4 @@ const page = ({params}:{params:{id:number}}) => {
   )
 }
 
-export default page
+export default Page
