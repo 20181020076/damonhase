@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+enum Rol {
+  ADMIN
+  CLIENT
+  PERRA
+}
+
+model users {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  rol       Rol      @default(CLIENT)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Product {
+  id              String      @id @default(uuid())
+  name            String
+  description     String?
+  primaryColors   String[]
+  secondaryColors String[]    @default([])
+  image           String
+  stock           Int
+  price           Int
+  categories     ProductCategory[]
+}
+
+model Category {  
+  name        String  @id
+  products    ProductCategory[] 
+}
+model ProductCategory{
+  productId String
+  product Product @relation(fields: [productId],references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId],references: [name])
+  @@id([productId,categoryId])
+}
+model Order {
+  id   String @id @default(uuid())
+  name String
+}
+model order {
+  id   String @id @default(uuid())
+  name String
+}

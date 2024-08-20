@@ -3,9 +3,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Scroller from "./components/Scroller";
 
+
 export default function Home() {
   const [scroll, setScroll] = useState(0);
   const [height, setHeight] = useState(0);
+
+ 
+  
 
   const handlePng = ()=>{
     scroll<=height/5?scroll/2:height/5
@@ -14,6 +18,7 @@ export default function Home() {
 
 
   useEffect(() => {
+
     setHeight(window.innerHeight);
     const handleScroll = () => {
       setScroll(window.scrollY);
