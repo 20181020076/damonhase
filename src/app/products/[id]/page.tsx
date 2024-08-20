@@ -2,10 +2,13 @@
 import productModel from "@/app/types/models/productModel";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import useCartStore from "@/app/store/cartStore";
 const Page = ({ params }: { params: { id: number } }) => {
   const [product, setProduct] = useState<productModel | string>("loading");
-  const [primaryColor, setPrimaryColor] = useState<number>(0);
-  const [secondaryColor, setSecondaryColor] = useState<number | null>(0);
+  const {add} = useCartStore();
+  const [primaryColor, setPrimaryColor] = useState<string>();
+  const [secondaryColor, setSecondaryColor] = useState<string | null>();
+
 
   const getProduct = async () => {
     await fetch(`/api/products/${params.id}`)
@@ -106,6 +109,7 @@ const Page = ({ params }: { params: { id: number } }) => {
               })}
             </div>
           </div>
+          <div>Agregar al carrito</div>
         </div>
       </div>
     );
