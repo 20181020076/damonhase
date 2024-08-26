@@ -10,10 +10,11 @@ interface CartState {
   productsCart: cartProductModel[];
   add: (product: cartProductModel) => void;
   remove: (productId: string) => void;
+  getProducts: (productId: string[]) => void;
   buy: (by: number) => void;
 }
 
-const useCartStore = create<CartState>((set) => ({
+const useCartStore = create<CartState>((set,get) => ({
   productsCart: [{productId:"1",primaryColor:"red",secondaryColor:undefined,quantity:5},{productId:"2",primaryColor:"blue",secondaryColor:"green",quantity:2}],
   add: (product) =>
     set((state) => ({
@@ -26,6 +27,20 @@ const useCartStore = create<CartState>((set) => ({
         (product) => product.productId !== productId
       ),
     })),
+  getProducts: async()=>{
+   
+      const { productsCart } = get();
+      const productsCartIs = productsCart.map((productCart)=>{
+          return productCart.productId
+      })
+      await fetch(`/api/cart?productIds=${productsCartIs}`).then((res)=>{
+          console.log(res)
+          console.log(productsCartIs)
+
+      })
+
+
+  },
 
   buy: () =>
     set(() => ({

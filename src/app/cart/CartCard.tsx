@@ -1,26 +1,15 @@
 "use client";
 import React, { useEffect } from 'react'
-import useCartStore from '../store/cartStore';
+import useCartStore, { cartProductModel } from '../store/cartStore';
 
-const CartCard = () => {
+const CartCard = ({product}:{product:cartProductModel}) => {
     const {buy, productsCart, remove} = useCartStore()
 
-    const handleData = async() =>{
-        const productsCartIs = productsCart.map((productCart)=>{
-            return productCart.productId
-        })
-        await fetch("/api/cart").then((res)=>{
-            console.log(res)
-            console.log(productsCartIs)
-
-        })
-    }
-
-    useEffect(()=>{
-        handleData()
-    },[])
+    
   return (
-    <div className='w-full h-[15vh] bg-white'>CartCard</div>
+    <div className='w-full h-[15vh] bg-white'>
+        <h1>{product.productId}</h1>
+    </div>
   )
 }
 

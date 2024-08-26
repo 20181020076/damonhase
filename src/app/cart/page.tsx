@@ -1,16 +1,26 @@
 "use client";
-import React from 'react'
-import useCartStore from '../store/cartStore'
+import React, { useEffect } from 'react'
+import useCartStore, { cartProductModel } from '../store/cartStore'
 import CartCard from './CartCard'
 
 const Page = () => {
-  const {productsCart} = useCartStore()
+  const {productsCart,getProducts} = useCartStore()
+  
+
+  useEffect(()=>{
+
+  },[])
+
+
   return (
     <div className='w-screen min-h-[100vh] pt-[10vh] border border-black'>
       <h1 className='font-bold text-2xl title'>Carrito</h1>
-      {productsCart.map((product,index)=>{
+      {productsCart.map((product:cartProductModel,index)=>{
         return(
-          <CartCard/>
+          <div className='w-full' key={index}>
+            <CartCard product={product}/>
+
+          </div>
         )
       })}
     </div>
